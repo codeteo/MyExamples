@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="ViewPropertyAnimator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/viewPropertyAnimatorAlphaID"
+        android:text= "ViewPropertyAnimator Alpha"
+        android:onClick="viewPropertyAnimatorAlpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/objectAnimatorID"
+        android:text= "ObjectAnimator Example"
+        android:onClick="objectAnimator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/objectAnimator2ID"
+        android:text= "@string/animate_textviews"
+        android:onClick="objectAnimator2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/animateViewGroupID"
+        android:text= "@string/animate_viewgroup"
+        android:onClick="animateViewGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/animateViewsOfViewGroupID"
+        android:text= "@string/animate_views_of_viewgroup"
+        android:onClick="animateViewsOfViewGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/viewAnimationRepeatID"
+        android:text= "@string/animate_views_of_viewgroup"
+        android:onClick="viewAnimationRepeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/propertyCustomEvaluatorID"
+        android:text= "@string/property_custom_evaluator"
+        android:onClick="propertyCustomEvaluator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/PropertyCircularScrollViewID"
+        android:text=  "@string/property_circular"
+        android:onClick="PropertyCircularScrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

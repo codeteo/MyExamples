@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="teo.ram.css.myexamplesrandom" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AnimationsActivity" >
+        </activity>
+
+        <activity android:name=".ViewAnimationsActivity" >
+        </activity>
+
+        <activity android:name=".ViewAnimationListenerActivity" >
+        </activity>
+
+        <activity android:name=".SequentiallyAnimationSet" >
+        </activity>
+
+
+        <!-- ViewPropertyAnimator -->
+
+        <activity android:name=".ViewPropertyAnimatorActivity" >
+        </activity>
+
+        <activity android:name=".ViewPropertyAnimatorAlpha" >
+        </activity>
+
+        <activity android:name=".ObjectAnimatorActivity" >
+        </activity>
+
+        <activity android:name=".ObjectAnimator2Activity" >
+        </activity>
+
+        <activity android:name=".ViewPropertyAnimateViewGroup" >
+        </activity>
+
+        <activity android:name=".ViewAnimateViewsOfViewGroup" >
+        </activity>
+
+        <activity android:name=".ViewAnimationRepeat" >
+        </activity>
+
+        <activity android:name=".PropertyCustomEvaluator" >
+        </activity>
+
+        <activity android:name=".PropertyCircularScrollView" >
+        </activity>
+
+
+        <activity android:name=".LibrariesActivity" >
+        </activity>
+
+        <activity android:name=".Sephiroth74Activity" >
+        </activity>
+
+    </application>
+
+</manifest>

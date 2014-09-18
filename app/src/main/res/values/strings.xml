@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyExamplesRandom</string>
+    <string name="hello_world">My Examples</string>
+    <string name="action_settings">Settings</string>
+    <string name="fading_out">Fading Out</string>
+    <string name="coming_back">Coming Back</string>
+
+
+    <string name="animate_textviews">Animate Multiple Views</string>
+    <string name="animate_viewgroup">Animate ViewGroup</string>
+    <string name="animate_views_of_viewgroup">Animate Views of ViewGroup</string>
+    <string name="animate_view_animationrepeat">View AnimationRepeat Delay</string>
+    <string name="property_custom_evaluator">Property Custom Evaluator</string>
+    <string name="property_circular">Property Circular</string>
+    <string name="libraries_activity">Libraries Activity</string>
+    <string name="sephiroth74_string"> sephiroth74 Library </string>
+
+</resources>

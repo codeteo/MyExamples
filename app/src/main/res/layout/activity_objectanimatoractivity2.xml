@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textViewId0"
+        android:text="TextView 0"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+
+    <TextView
+        android:id="@+id/textViewId1"
+        android:text="TextView 1"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:id="@+id/textViewId2"
+        android:text="TextView 2"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:id="@+id/textViewId3"
+        android:text="TextView 3"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:id="@+id/textViewId4"
+        android:text="TextView 4"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:id="@+id/textViewId5"
+        android:text="TextView 5"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:id="@+id/textViewId6"
+        android:text="TextView 6"
+        android:visibility="gone"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
+
+
+
+</FrameLayout>
