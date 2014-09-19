@@ -8,4 +8,6 @@
     <dimen name="item_size_2">90dip</dimen>
     <dimen name="item_size_3">110dip</dimen>
 
+    <dimen name="three_items_size">100dip</dimen>
+
 </resources>
