@@ -14,7 +14,13 @@
     <string name="animate_view_animationrepeat">View AnimationRepeat Delay</string>
     <string name="property_custom_evaluator">Property Custom Evaluator</string>
     <string name="property_circular">Property Circular</string>
+
+
     <string name="libraries_activity">Libraries Activity</string>
     <string name="sephiroth74_string"> sephiroth74 Library </string>
+    <string name="listview_string"> ListView Click</string>
+    <string name="activity_fragments">Fragments Examples</string>
+    <string name="activity_ripples">Ripples Examples</string>
+    <string name="activity_viewpager">ViewPager Examples</string>
 
 </resources>

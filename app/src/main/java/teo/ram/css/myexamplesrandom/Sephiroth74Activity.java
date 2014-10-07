@@ -1,7 +1,10 @@
 package teo.ram.css.myexamplesrandom;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.AutoScrollHelper;
 import android.util.Log;
@@ -16,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.sephiroth.android.library.widget.AbsHListView;
-import it.sephiroth.android.library.widget.AdapterView;
 import it.sephiroth.android.library.widget.HListView;
 
 /**
@@ -32,6 +34,9 @@ public class Sephiroth74Activity extends Activity implements HListView.OnTouchLi
     private int TOTAL_ITEMS = 2000;
     private AutoScrollHelper mScrollHelper;
     private boolean mActionDown;
+
+    private ObjectAnimator mScaleUp;
+    private View mDownView;
 
 
     /** DEBUG **/
@@ -56,19 +61,20 @@ public class Sephiroth74Activity extends Activity implements HListView.OnTouchLi
 
         hll.setAdapter( mAdapter );
 
-        hll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String data = (String) adapterView.getItemAtPosition(position);
-                String pos = String.valueOf(position);
-                Log.i(TAG, "text=  " + data + "  pos= " + pos);
-            }
-        });
+//        hll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                String data = (String) adapterView.getItemAtPosition(position);
+//                String pos = String.valueOf(position);
+//                Log.i(TAG, "text=  " + data + "  pos= " + pos);
+//
+//            }
+//        });
 
 
         hll.setOnScrollListener(this);
         hll.setOnTouchListener(this);
-        hll.setSelection(TOTAL_ITEMS / 2);
+//        hll.setSelection(TOTAL_ITEMS / 2);
 
 
 
@@ -128,8 +134,40 @@ public class Sephiroth74Activity extends Activity implements HListView.OnTouchLi
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
+        if(DEBUG) Log.i(TAG, " ******** Activity's ONTOUCH********* ");
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                // Find the child view that was touched (perform a hit test)
+                Rect rect = new Rect();
+                int childCount = hll.getChildCount();           // number of views in group currently visible
+                int[] listViewCoords = new int[2];
+                hll.getLocationOnScreen(listViewCoords);
+                int x = (int) event.getRawX() - listViewCoords[0];
+                int y = (int) event.getRawY() - listViewCoords[1];
+                View child;
+                for (int i = 0; i < childCount; i++) {
+                    child = hll.getChildAt(i);
+
+                    int tag  = (Integer) child.getTag();
+
+                    child.getHitRect(rect);
+                    if (rect.contains(x, y)) {
+                        Log.i(TAG, "child==  " + i  + "  tag== "  + tag);
+                        mDownView = child; // This is your down view
+
+                    mScaleUp = ObjectAnimator.ofPropertyValuesHolder(mDownView,
+                            PropertyValuesHolder.ofFloat("scaleX", 4f),
+                            PropertyValuesHolder.ofFloat("scaleY", 5f));
+                    mScaleUp.setDuration(1000);
+                    mScaleUp.start();
+
+                        break;
+                    }
+                }
+
+                Log.i(TAG, " *** ACTION DOWN *** ");
+
+
                 mActionDown=true;
                 break;
             case MotionEvent.ACTION_UP:
@@ -235,6 +273,31 @@ public class Sephiroth74Activity extends Activity implements HListView.OnTouchLi
             TextView textView = (TextView) convertView.findViewById( mTextResId );
             textView.setText( getItem( position ) );
 
+            Log.i(TAG, "***POSITION=== " + position);
+
+            if (position%9 == 0) {
+                convertView.setTag(0);
+            } else if (position%9 == 1) {
+                convertView.setTag(1);
+            } else if (position%9 == 2) {
+                convertView.setTag(2);
+            } else if (position%9 == 3) {
+                convertView.setTag(3);
+            } else if (position%9 == 4) {
+                convertView.setTag(4);
+            } else if (position%9 == 5) {
+                convertView.setTag(5);
+            } else if (position%9 == 6) {
+                convertView.setTag(6);
+            } else if (position%9 == 7) {
+                convertView.setTag(7);
+            } else if (position%9 == 8) {
+                convertView.setTag(8);
+            } else convertView.setTag(100);
+
+
+//            View v = super.getView(position, convertView, parent);
+//            v.setOnTouchListener(this);
 
             /** depending on Type returns width for the view **/
             int type = getItemViewType( position );
@@ -250,6 +313,29 @@ public class Sephiroth74Activity extends Activity implements HListView.OnTouchLi
 
             return convertView;
         }
+
+//        @Override
+//        public boolean onTouch(View v, MotionEvent event) {
+//            Log.i(TAG, "***MESA sto onTouch***");
+//
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+////                    mActionDown=true;
+//                    mScaleUp = ObjectAnimator.ofPropertyValuesHolder(v,
+//                            PropertyValuesHolder.ofFloat("scaleX", 1.5f),
+//                            PropertyValuesHolder.ofFloat("scaleY", 1.5f));
+//                    mScaleUp.setDuration(1000);
+//                    mScaleUp.start();
+//
+//                    break;
+//                case MotionEvent.ACTION_UP:
+////                    mActionDown=false;
+//                    break;
+//            }
+//            return true;
+//        }
+
+
     }
 
 

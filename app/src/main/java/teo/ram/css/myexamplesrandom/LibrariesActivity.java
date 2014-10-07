@@ -25,4 +25,9 @@ public class LibrariesActivity extends Activity{
         startActivity(i);
     }
 
+    public void listViewClick(View view) {
+        Intent i = new Intent(this, ListViewClick.class);
+        startActivity(i);
+    }
+
 }

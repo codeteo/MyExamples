@@ -8,6 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.debug.hv.ViewServer;
+
+import teo.ram.css.myexamplesrandom.fragments.FragmentsActivity;
+import teo.ram.css.myexamplesrandom.ripples.RipplesActivity;
+import teo.ram.css.myexamplesrandom.viewpager.ViewPagerActivity;
+
 
 public class MainActivity extends Activity {
 
@@ -19,6 +25,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         animationsButton = (Button) findViewById(R.id.animationsID);
+
+        ViewServer.get(this).addWindow(this);       // ViewServer
 
     }
 
@@ -48,10 +56,41 @@ public class MainActivity extends Activity {
         startActivity(i);
     }
 
+
     public void librariesClick(View view){
         Intent i = new Intent(this, LibrariesActivity.class);
         startActivity(i);
     }
 
+    public void fragmentClick(View view){
+        Intent i = new Intent(this, FragmentsActivity.class);
+        startActivity(i);
+    }
+
+    public void rippleClick(View view){
+        Intent i = new Intent(this, RipplesActivity.class);
+        startActivity(i);
+    }
+
+    public void viewpagerClick(View view){
+        Intent i = new Intent(this, ViewPagerActivity.class);
+        startActivity(i);
+    }
+
+
+
+    // ViewServer
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ViewServer.get(this).removeWindow(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ViewServer.get(this).setFocusedWindow(this);
+    }
 
 }

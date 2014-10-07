@@ -29,6 +29,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/fragmentClickID"
+        android:text=    "@string/activity_fragments"
+        android:onClick="fragmentClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/rippleClickID"
+        android:text=    "@string/activity_ripples"
+        android:onClick="rippleClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/viewPagerClickID"
+        android:text=  "@string/activity_viewpager"
+        android:onClick="viewpagerClick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>

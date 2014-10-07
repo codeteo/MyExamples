@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="teo.ram.css.myexamplesrandom" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -64,6 +67,30 @@
         </activity>
 
         <activity android:name=".Sephiroth74Activity" >
+        </activity>
+
+
+
+        <activity android:name=".fragments.FragmentsActivity" >
+        </activity>
+
+        <activity android:name=".ripples.RipplesActivity" >
+        </activity>
+
+
+        <activity android:name=".ripples.WaveDrawableActivity" >
+        </activity>
+
+        <activity android:name=".ripples.WaveDrawableRevampedActivity" >
+        </activity>
+
+        <activity android:name=".viewpager.ViewPagerActivity" >
+        </activity>
+
+        <activity android:name=".viewpager.ViewPagerSimpler" >
+        </activity>
+
+        <activity android:name=".viewpager.CarouselActivity" >
         </activity>
 
     </application>
