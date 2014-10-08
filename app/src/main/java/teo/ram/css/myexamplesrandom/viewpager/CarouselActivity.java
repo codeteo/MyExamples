@@ -21,7 +21,7 @@ public class CarouselActivity extends FragmentActivity {
     public final static float SMALL_SCALE = 0.7f;
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
 
-    public CarouselAdapter adapter;
+    public CarouselPagerAdapter adapter;
     public ViewPager pager;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class CarouselActivity extends FragmentActivity {
 
         pager = (ViewPager) findViewById(R.id.myviewpager);
 
-        adapter = new CarouselAdapter(this, getSupportFragmentManager());
+        adapter = new CarouselPagerAdapter(this, getSupportFragmentManager());
         pager.setAdapter(adapter);
         pager.setOnPageChangeListener(adapter);
 

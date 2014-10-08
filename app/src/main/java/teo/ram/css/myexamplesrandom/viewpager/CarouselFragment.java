@@ -2,10 +2,13 @@ package teo.ram.css.myexamplesrandom.viewpager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import teo.ram.css.myexamplesrandom.R;
@@ -13,7 +16,11 @@ import teo.ram.css.myexamplesrandom.R;
 /**
  * Created by css on 10/7/14.
  */
-public class CarouselFragment extends Fragment {
+public class CarouselFragment extends android.support.v4.app.ListFragment {
+
+    private static String[] cheeses = {"Ramones", "Clash", "Sex Pistols", "Dead Kennedys",
+            "Fall", "Jonathan Richman", "Mark E. Smith", "999", "Mark Lanegan", "Asimos"};
+
 
     public static Fragment newInstance(CarouselActivity context, int pos, float scale)    {
         Bundle b = new Bundle();
@@ -41,6 +48,20 @@ public class CarouselFragment extends Fragment {
         root.setScaleBoth(scale);
 
         return l;
+    }
+
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setListAdapter(new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, cheeses));
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Log.i("FragmentList", "Item clicked: " + id);
     }
 
 
