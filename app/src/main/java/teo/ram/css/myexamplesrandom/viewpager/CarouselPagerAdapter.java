@@ -2,6 +2,8 @@ package teo.ram.css.myexamplesrandom.viewpager;
 
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.util.SparseArray;
 
 import teo.ram.css.myexamplesrandom.R;
 
@@ -13,11 +15,14 @@ import teo.ram.css.myexamplesrandom.R;
  */
 public class CarouselPagerAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
 
+    SparseArray<android.support.v4.app.Fragment> registeredFragments = new SparseArray<android.support.v4.app.Fragment>();
+
     private CarouselLinearLayout cur = null;
     private CarouselLinearLayout next = null;
     private CarouselActivity context;
     private android.support.v4.app.FragmentManager fm;
     private float scale;
+    private Boolean flag=false;
 
     public CarouselPagerAdapter(CarouselActivity context, android.support.v4.app.FragmentManager fm) {
         super(fm);
@@ -25,17 +30,17 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements ViewPa
         this.context = context;
     }
 
-
     @Override
-    public android.support.v4.app.Fragment  getItem(int position) {
-        // make the first pager bigger than others
+    public android.support.v4.app.Fragment  getItem(int position) {  //   *** GET ITEM *** //
+        Log.i("GETITEM", "GET ITEM position== " + position);
         if (position == CarouselActivity.FIRST_PAGE)
             scale = CarouselActivity.BIG_SCALE;
         else
             scale = CarouselActivity.SMALL_SCALE;
 
+        flag = CarouselActivity.FLAG;
         position = position % CarouselActivity.PAGES;
-        return CarouselFragment.newInstance(context, position, scale);
+        return CarouselFragment.newInstance(context, position, scale, flag);
     }
 
     @Override
@@ -62,14 +67,14 @@ public class CarouselPagerAdapter extends FragmentPagerAdapter implements ViewPa
     @Override
     public void onPageScrollStateChanged(int state) {}
 
-
     private CarouselLinearLayout getRootView(int position)  {
         return (CarouselLinearLayout)
             fm.findFragmentByTag(this.getFragmentTag(position))
             .getView().findViewById(R.id.root);
     }
 
-    private String getFragmentTag(int position)  {
+    private String getFragmentTag(int position) {
+//        Log.i("position", "Position=== " + position);
         return "android:switcher:" + context.pager.getId() + ":" + position;
     }
 

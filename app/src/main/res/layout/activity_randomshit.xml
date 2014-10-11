@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center_horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/outerTextID"
+        android:text="Outer Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:id="@+id/outerButtonID"
+        android:text="Outer Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+<!--
+        <LinearLayout
+            android:id="@+id/rootID"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="top|center_horizontal">-->
+
+            <TextView
+                android:id="@+id/innerTextID"
+                android:text="Inner Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:id="@+id/innerButtonID"
+                android:text="Inner Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+        <!--</LinearLayout>-->
+
+
+</LinearLayout>

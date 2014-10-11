@@ -20,8 +20,7 @@ public class CarouselLinearLayout extends LinearLayout {
         super(context);
     }
 
-    public void setScaleBoth(float scale)
-    {
+    public void setScaleBoth(float scale)     {
         this.scale = scale;
         this.invalidate(); 	// If you want to see the scale every time you set
         // scale you need to have this line here,

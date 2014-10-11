@@ -93,6 +93,9 @@
         <activity android:name=".viewpager.CarouselActivity" >
         </activity>
 
+        <activity android:name=".viewpager.RandomStuff" >
+        </activity>
+
     </application>
 
 </manifest>
