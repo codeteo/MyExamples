@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"/>
 
     <Button
-        android:text="Button 2"
+        android:text="Carousel"
         android:id="@+id/v2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -20,6 +20,18 @@
     <Button
         android:text="Button 3"
         android:id="@+id/v3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="Infinite ViewPager"
+        android:id="@+id/v4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="Version2 ViewPager"
+        android:id="@+id/v5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

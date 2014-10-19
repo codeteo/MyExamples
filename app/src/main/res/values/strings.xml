@@ -22,5 +22,6 @@
     <string name="activity_fragments">Fragments Examples</string>
     <string name="activity_ripples">Ripples Examples</string>
     <string name="activity_viewpager">ViewPager Examples</string>
+    <string name="myViewPagerString">My ViewPager</string>
 
 </resources>

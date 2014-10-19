@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,7 +20,8 @@ import teo.ram.css.myexamplesrandom.R;
 /**
  * Created by css on 10/7/14.
  */
-public class CarouselFragment extends android.support.v4.app.ListFragment implements View.OnClickListener{
+public class CarouselFragment extends android.support.v4.app.ListFragment implements View.OnClickListener,
+                    View.OnTouchListener {
 
     private static String[] cheeses = {"Ramones", "Clash", "Sex Pistols", "Dead Kennedys",
             "Fall", "Jonathan Richman", "Mark E. Smith", "999", "Mark Lanegan", "Asimos"};
@@ -40,14 +42,17 @@ public class CarouselFragment extends android.support.v4.app.ListFragment implem
 
     private Boolean flag=false;
 
-    public static Fragment newInstance(CarouselActivity context, int pos, float scale, Boolean flag)    {
+    private int pagePosition=0;
+
+    public static Fragment newInstance(CarouselActivity context, int pagePosition, float scale, Boolean flag)    {
         Bundle b = new Bundle();
-        b.putInt("pos", pos);
-//        Log.i(TAG, "New Instance @ pos== " + pos);
+        b.putInt("pagePosition", pagePosition);
+        Log.i(TAG, "New Instance @ pagePosition== " + pagePosition);
         b.putFloat("scale", scale);
         b.putBoolean("flag", flag);
         return Fragment.instantiate(context, CarouselFragment.class.getName(), b);
     }
+
 
     public interface OnAnimationStart {
         public void onAnimation();
@@ -87,12 +92,13 @@ public class CarouselFragment extends android.support.v4.app.ListFragment implem
                     inflater.inflate(R.layout.fragment_carousel, container, false);
         }
 
-        int pos = this.getArguments().getInt("pos");                    //getArguments
+        pagePosition = this.getArguments().getInt("pagePosition");                    //getArguments
         tv = (TextView) l.findViewById(R.id.text);
-        tv.setText("Position = " + pos);
+        tv.setText("pagePosition = " + pagePosition);
 
         button = (Button) l.findViewById(R.id.content);
-        button.setOnClickListener(this);
+//        button.setOnClickListener(this);
+//        l.setOnTouchListener(this);
 
         root = (CarouselLinearLayout) l.findViewById(R.id.root);
         float scale = this.getArguments().getFloat("scale");            //getArguments
@@ -109,6 +115,12 @@ public class CarouselFragment extends android.support.v4.app.ListFragment implem
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, " on Destroy  pagePosition== " + pagePosition);
+    }
+
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Log.i("FragmentList", "Item clicked: " + id);
     }
@@ -116,16 +128,33 @@ public class CarouselFragment extends android.support.v4.app.ListFragment implem
 
     @Override
     public void onClick(View view) {
-        int id = view.getId();
-        if ( id == R.id.content ) {
-            if ( !flag ) {
-                Log.i(TAG, "Animation!!");
-                flag = true;
-                mCallback.onAnimation();
-                moveAnimation();
-            }
-        }
+        Log.i(TAG, "***onClick***");
+//        int id = view.getId();
+//        if ( id == R.id.content ) {
+//            if ( !flag ) {
+//                Log.i(TAG, "Animation!!");
+//                flag = true;
+//                mCallback.onAnimation();
+//                moveAnimation();
+//            }
+//        }
     }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        Log.i(TAG, "***onTouch***");
+//        int id = view.getId();
+//        if (id == R.id.content) {
+//            if (!flag) {
+//                Log.i(TAG, "Animation!!");
+//                flag = true;
+//                mCallback.onAnimation();
+//                moveAnimation();
+//            }
+//        }
+        return true;
+    }
+
 
     public void moveAnimation() {
         animator = ObjectAnimator.ofFloat(root, "y", 20f);

@@ -11,12 +11,11 @@ import android.widget.Button;
 import com.android.debug.hv.ViewServer;
 
 import teo.ram.css.myexamplesrandom.fragments.FragmentsActivity;
-import teo.ram.css.myexamplesrandom.myviewpager.MainActivityViewPager;
 import teo.ram.css.myexamplesrandom.ripples.RipplesActivity;
 import teo.ram.css.myexamplesrandom.viewpager.ViewPagerActivity;
 
 
-public class MainActivity extends Activity {
+public class EndlessActivity extends Activity {
 
     Button animationsButton;
 
@@ -75,11 +74,6 @@ public class MainActivity extends Activity {
 
     public void viewpagerClick(View view){
         Intent i = new Intent(this, ViewPagerActivity.class);
-        startActivity(i);
-    }
-
-    public void myviewpagerClick(View view){
-        Intent i = new Intent(this, MainActivityViewPager.class);
         startActivity(i);
     }
 

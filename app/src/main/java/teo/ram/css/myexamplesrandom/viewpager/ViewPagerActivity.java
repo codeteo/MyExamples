@@ -8,12 +8,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import teo.ram.css.myexamplesrandom.R;
+import teo.ram.css.myexamplesrandom.viewpager.infiniteviewpager.InfiniteActivity;
+import teo.ram.css.myexamplesrandom.viewpager.version2.Version2Activity;
 
 /**
  * Created by css on 10/4/14.
  */
 public class ViewPagerActivity extends Activity implements View.OnClickListener {
-    Button b1, b2, b3;
+    Button b1, b2, b3, b4, b5;
 
 
     @Override
@@ -24,10 +26,14 @@ public class ViewPagerActivity extends Activity implements View.OnClickListener 
         b1 = (Button) findViewById(R.id.v1);
         b2 = (Button) findViewById(R.id.v2);
         b3 = (Button) findViewById(R.id.v3);
+        b4 = (Button) findViewById(R.id.v4);
+        b5 = (Button) findViewById(R.id.v5);
 
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
+        b4.setOnClickListener(this);
+        b5.setOnClickListener(this);
 
     }
 
@@ -40,9 +46,16 @@ public class ViewPagerActivity extends Activity implements View.OnClickListener 
         } else if (view.getId() == R.id.v2) {
             Intent i = new Intent(this, CarouselActivity.class);
             startActivity(i);
-        } else if(view.getId() == R.id.v3 ){
+        } else if(view.getId() == R.id.v3 ) {
             Intent i = new Intent(this, RandomStuff.class);
             startActivity(i);
+        }else if (view.getId() == R.id.v4) {
+            Intent i = new Intent(this, InfiniteActivity.class);
+            startActivity(i);
+        }else if (view.getId() == R.id.v5) {
+            Intent i = new Intent(this, Version2Activity.class);
+            startActivity(i);
+
         } else {
             Toast.makeText(this, "ARXIDIA", Toast.LENGTH_SHORT).show();
         }

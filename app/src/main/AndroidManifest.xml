@@ -96,6 +96,19 @@
         <activity android:name=".viewpager.RandomStuff" >
         </activity>
 
+        <activity android:name=".endlessviewpager.EndlessActivity" >
+        </activity>
+
+
+        <activity android:name=".myviewpager.MainActivityViewPager" >
+        </activity>
+
+        <activity android:name=".viewpager.infiniteviewpager.InfiniteActivity" >
+        </activity>
+
+        <activity android:name=".viewpager.version2.Version2Activity" >
+        </activity>
+
     </application>
 
 </manifest>

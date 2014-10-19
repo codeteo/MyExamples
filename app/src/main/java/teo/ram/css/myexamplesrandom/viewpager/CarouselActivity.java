@@ -1,18 +1,29 @@
 package teo.ram.css.myexamplesrandom.viewpager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.widget.Scroller;
 
 import com.android.debug.hv.ViewServer;
+
+import java.lang.reflect.Field;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import teo.ram.css.myexamplesrandom.R;
 
 /**
  * Created by css on 10/7/14.
  */
-public class CarouselActivity extends FragmentActivity  implements CarouselFragment.OnAnimationStart{
+public class CarouselActivity extends FragmentActivity  implements CarouselFragment.OnAnimationStart,
+                    View.OnTouchListener{
 
     public final static int PAGES = 5;
     // You can choose a bigger number for LOOPS, but you know, nobody will fling
@@ -31,6 +42,19 @@ public class CarouselActivity extends FragmentActivity  implements CarouselFragm
 
     public static final String TAG = "CarouselActivity".toUpperCase();
 
+    private int currentPage=FIRST_PAGE;
+    private Handler handler;
+    private Timer swipeTimer;
+    private Runnable Update;
+
+    int centerFragmentPosition = FIRST_PAGE;
+    int pagerIncrement = 0;
+
+    CarouselScroller scroller;
+    private Field mScrollerField;
+    private Scroller mOldScroller;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carouselpager);
@@ -41,18 +65,51 @@ public class CarouselActivity extends FragmentActivity  implements CarouselFragm
         pager.setAdapter(adapter);
         pager.setOnPageChangeListener(adapter);
 
-
-        // Set current item to the middle page so we can fling to both
-        // directions left and right
         pager.setCurrentItem(FIRST_PAGE);
-
-        // Necessary or the pager will only have one extra page to show
-        // make this at least however many pages you can see
         pager.setOffscreenPageLimit(2);
-
-        // Set margin for pages as a negative number, so a part of next and
-        // previous pages will be showed
         pager.setPageMargin(-200);
+
+
+        pager.setOnTouchListener(this);
+
+        Interpolator decelerator = new DecelerateInterpolator();
+        try {
+            mScrollerField= ViewPager.class.getDeclaredField("mScroller");
+            mScrollerField.setAccessible(true);
+            mOldScroller = (Scroller)mScrollerField.get(pager); //getting old value
+            scroller = new CarouselScroller(pager.getContext(), decelerator);
+            mScrollerField.set(pager, scroller);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        /*IMPORTANT at least pass the exception to logcat also for your
+        sanity (fx: in next version of compat library the field could be renamed
+        to mTheScroller and you could get NPE in restore code and then ask
+        stupid(without logcat) questions on SO why ...*/
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        handler = new Handler();
+        Update = new Runnable() {
+            public void run() {
+                currentPage = currentPage % CarouselActivity.PAGES;
+                currentPage++;
+                centerFragmentPosition++;
+                Log.i(TAG + " /onRunnable", "centerFragmentPosition== " + centerFragmentPosition  + "  currentPage== " + currentPage % CarouselActivity.PAGES);
+                pager.setCurrentItem(2500+pagerIncrement++, true);
+            }
+        };
+
+        swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(Update);                       // TODO postDelayed
+            }
+        }, 1000, 3000);
 
         // ViewServer
         ViewServer.get(this).addWindow(this);       // ViewServer
@@ -64,6 +121,7 @@ public class CarouselActivity extends FragmentActivity  implements CarouselFragm
     @Override
     public void onDestroy() {
         super.onDestroy();
+        FLAG = false;
         ViewServer.get(this).removeWindow(this);
     }
 
@@ -75,23 +133,58 @@ public class CarouselActivity extends FragmentActivity  implements CarouselFragm
 
     @Override
     public void onAnimation() {
-        // gia ola ta fragments ektos apo ayto pou xo parei to fragmentposition tou
-        // steile na ksekinhsoun to animation
 
+//        if ( !FLAG ) {
+//            Log.i(TAG, "Removing Handler");
+//            handler.removeCallbacks(Update);
+//            swipeTimer.cancel();
+//
+//            for (int i = 2400; i < 2600; i++) {
+//                //      Log.i(TAG, " Mphke mes ---  i= " + i  );
+//
+//                String fragmentTag = "android:switcher:" + pager.getId() + ":" + i;
+//                //      Log.i(TAG, "fragmentTag== " + fragmentTag);
+//
+//                CarouselFragment carouselFragment = (CarouselFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
+//                if (carouselFragment != null) {
+//                    Log.i(TAG, "Carousel Fragment TAG===  " + carouselFragment.getTag());
+//                    carouselFragment.moveAnimation();
+//                }
+//            }
+//        }
+//        FLAG = true;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
         if ( !FLAG ) {
-            for (int i = 2400; i < 2600; i++) {
-        //      Log.i(TAG, " Mphke mes ---  i= " + i  );
+            Log.i(TAG, "Removing Handler");
+            swipeTimer.cancel();
+            handler.removeCallbacks(Update);
 
-                String fragmentTag = "android:switcher:" + pager.getId() + ":" + i;
-        //      Log.i(TAG, "fragmentTag== " + fragmentTag);
 
-                CarouselFragment carouselFragment = (CarouselFragment) getSupportFragmentManager().findFragmentByTag(fragmentTag);
-                if (carouselFragment != null) {
-                    Log.i(TAG, "Carousel Fragment TAG===  " + carouselFragment.getTag());
-                    carouselFragment.moveAnimation();
+            Log.i(TAG + " /onTouch", "currentPage == " + currentPage);
+            String fTag = "android:switcher:" + pager.getId() + ":" + centerFragmentPosition;
+            CarouselFragment carouselFragment = (CarouselFragment) getSupportFragmentManager().findFragmentByTag(fTag);
+            if (carouselFragment != null) {
+                Log.i(TAG, "Carousel Fragment TAG===  " + carouselFragment.getTag());
+//                carouselFragment.moveAnimation();
+                pager.setCurrentItem(FIRST_PAGE + ( currentPage % CarouselActivity.PAGES) ) ;
+//                pager.setOnPageChangeListener(adapter);
+
+                /* *** on Touch change Scroller *** */
+                try {
+                    Log.i(TAG, "new Scroller");
+                    mScrollerField.set(pager, mOldScroller);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
+
             }
         }
         FLAG = true;
+        return true;
     }
 }
