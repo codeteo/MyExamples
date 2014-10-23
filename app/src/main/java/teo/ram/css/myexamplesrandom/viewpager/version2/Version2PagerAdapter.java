@@ -1,11 +1,10 @@
 package teo.ram.css.myexamplesrandom.viewpager.version2;
 
-import android.os.Parcelable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import teo.ram.css.myexamplesrandom.R;
@@ -13,13 +12,13 @@ import teo.ram.css.myexamplesrandom.R;
 /**
  * Created by css on 10/16/14.
  */
-public class Version2PagerAdapter  extends FragmentPagerAdapter {
+public class Version2PagerAdapter  extends FragmentStatePagerAdapter {
 
     private static final String TAG = "FragmentPagerAdapter";
     private static final boolean DEBUG = true;
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
-    private android.support.v4.app.Fragment mCurrentPrimaryItem = null;
+    private Fragment mCurrentPrimaryItem = null;
 
     Version2Activity context;
 
@@ -33,14 +32,14 @@ public class Version2PagerAdapter  extends FragmentPagerAdapter {
     /**
      * Return the Fragment associated with a specified position.
      */
-    public  android.support.v4.app.Fragment getItem(int position) {
-//        Log.i(TAG, "getItem Times== " + position);
+    public android.support.v4.app.Fragment getItem(int position) {
+        Log.i(TAG, "Fragment newInstance== " + position);
         return Version2Fragment.newInstance(context, position);
     }
 
     @Override
     public int getCount() {
-        return 20;                                                                                                          // return 20;
+        return 10;                                                                                                          // return 20;
     }
 
     public int getRealCount() {
@@ -60,15 +59,10 @@ public class Version2PagerAdapter  extends FragmentPagerAdapter {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        final long itemId = getItemId(virtualPosition);
-        final long poss = (long)position;
-        // Do we already have this fragment?
-        String name = makeFragmentName(container.getId(), itemId);
-//        android.support.v4.app.Fragment fragment = mFragmentManager.findFragmentByTag(name);
-//        android.support.v4.app.Fragment fragment = getFragmentByPosition(container.getId(), itemId);
-        String name2 = getFragmentTag(poss);
-        android.support.v4.app.Fragment fragment = mFragmentManager.findFragmentByTag(name2);
-        //getItemByPosition
+        final long itemId = (long)(virtualPosition);
+        final long pos = (long)position;
+        String fragmentTag = getFragmentTag(itemId);
+        Fragment fragment = mFragmentManager.findFragmentByTag(fragmentTag);
 
         if (fragment != null) {
             if (DEBUG) Log.i(TAG, "Attaching item #" + itemId + ": f=" + fragment);
@@ -87,26 +81,48 @@ public class Version2PagerAdapter  extends FragmentPagerAdapter {
     }
 
 
+//    @Override
+//    public int getItemPosition(Object object){
+//        return PagerAdapter.POSITION_NONE;
+//    }
+
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+        int virtualPosition = position % getRealCount();
 
-        //destroy NONE                                                                                                      // I dont need to destroy
+        Fragment fragment = (Fragment) object;
+        if (mCurTransaction != null) {
+            Log.i(TAG, " ******************* DETACH **** ");
+            mCurTransaction.detach(fragment);
+            mCurTransaction.commitAllowingStateLoss();      //like commit()
+            mCurTransaction = null;
+            mFragmentManager.executePendingTransactions();
+        }
+//        object.det
+        Log.i(TAG, "destroy Item  f== "  + object );
 
+//        android.support.v4.app.Fragment detachFragment;
+//        String fragmentTag = getFragmentTag((long)virtualPosition);
+//        detachFragment = mFragmentManager.findFragmentByTag(fragmentTag);
+//
+//
 //        if (mCurTransaction == null) {
 //            mCurTransaction = mFragmentManager.beginTransaction();
 //        }
-//        if (DEBUG) Log.v(TAG, "Detaching item #" + getItemId(position) + ": f=" + object
-//                + " v=" + ((android.support.v4.app.Fragment)object).getView());
-//        mCurTransaction.detach((android.support.v4.app.Fragment)object);
-    }
+//        mCurTransaction.detach(detachFragment);
 
+    }
 
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        android.support.v4.app.Fragment fragment = (android.support.v4.app.Fragment) object;
+        Log.i(TAG, "setPrimaryItem");
+        Fragment fragment = (Fragment) object;
         if (fragment != mCurrentPrimaryItem) {
-            if (mCurrentPrimaryItem != null) {
+            Log.i(TAG, " fragment != mCurrentPrimaryItem ");
+            if (mCurrentPrimaryItem != null ) {
+                Log.i(TAG, "mCurrentPrimaryItem != null ");
                 mCurrentPrimaryItem.setMenuVisibility(false);
                 mCurrentPrimaryItem.setUserVisibleHint(false);
             }
@@ -117,44 +133,16 @@ public class Version2PagerAdapter  extends FragmentPagerAdapter {
             mCurrentPrimaryItem = fragment;
         }
     }
+
     @Override
     public void finishUpdate(ViewGroup container) {
+        Log.i(TAG, "finish Update");
         if (mCurTransaction != null) {
-            mCurTransaction.commitAllowingStateLoss();
+            Log.i(TAG, "finish Update !=null ");
+            mCurTransaction.commitAllowingStateLoss();      //like commit()
             mCurTransaction = null;
             mFragmentManager.executePendingTransactions();
         }
-    }
-
-
-
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return ((android.support.v4.app.Fragment)object).getView() == view;
-    }
-    @Override
-    public Parcelable saveState() {
-        return null;
-    }
-
-    @Override
-    public void restoreState(Parcelable state, ClassLoader loader) {
-    }
-
-    /**
-     * Return a unique identifier for the item at the given position.
-     *
-     * <p>The default implementation returns the given position.
-     * Subclasses should override this method if the positions of items can change.</p>
-     *
-     * @param position Position within this adapter
-     * @return Unique identifier for the item at position
-     */
-    @Override
-    public long getItemId(int position) {
-//        Log.i(TAG, "getItemID==  " + position);
-        return position;
     }
 
 
@@ -162,7 +150,7 @@ public class Version2PagerAdapter  extends FragmentPagerAdapter {
         return "android:switcher:" + viewId + ":" + id;
     }
 
-    public android.support.v4.app.Fragment getFragmentByPosition(int viewID, long pos) {
+    public Fragment getFragmentByPosition(int viewID, long pos) {
         String tag = "android:switcher:" + viewID + ":" + pos;
         return mFragmentManager.findFragmentByTag(tag);
     }
@@ -171,13 +159,5 @@ public class Version2PagerAdapter  extends FragmentPagerAdapter {
     private String getFragmentTag(long pos){
         return "android:switcher:"+ R.id.myviewpager_pager+":"+pos;
     }
-
-//    public Fragment findFragmentByPosition(int position) {
-//        FragmentPagerAdapter fragmentPagerAdapter = getFragmentPagerAdapter();
-//        return getSupportFragmentManager().findFragmentByTag(
-//                "android:switcher:" + getViewPager().getId() + ":"
-//                        + fragmentPagerAdapter.getItemId(position));
-//    }
-
 
 }

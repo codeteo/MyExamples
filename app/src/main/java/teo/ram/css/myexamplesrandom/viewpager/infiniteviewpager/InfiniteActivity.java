@@ -42,6 +42,10 @@ public class InfiniteActivity extends FragmentActivity {
         // wrap pager to provide infinite paging with wrap-around
         PagerAdapter wrappedAdapter = new InfinitePagerAdapter(adapter);
 
+//        wrappedAdapter.setM
+//        wrappedAdapter.setPageMargin(-200);
+
+
         // actually an InfiniteViewPager
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager_infiniteviewpager);
         viewPager.setAdapter(wrappedAdapter);
