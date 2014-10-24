@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="/home/css/Documents/Development/AndroidStudioWorkspace/MyExamples/MyExamplesRandom/libraries/viewserver/src/main/res" />
+        <source path="/home/css/Documents/Development/AndroidStudioWorkspace/MyExamples/MyExamplesRandom/libraries/viewserver/build/generated/res/rs/release" />
+        <source path="/home/css/Documents/Development/AndroidStudioWorkspace/MyExamples/MyExamplesRandom/libraries/viewserver/build/generated/res/generated/release" />
+    </dataSet>
+    <dataSet config="release" >
+        <source path="/home/css/Documents/Development/AndroidStudioWorkspace/MyExamples/MyExamplesRandom/libraries/viewserver/src/release/res" />
+    </dataSet>
+
+</merger>

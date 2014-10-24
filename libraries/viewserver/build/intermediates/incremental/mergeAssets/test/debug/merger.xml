@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="debug" >
+        <source path="/home/css/Documents/Development/AndroidStudioWorkspace/MyExamples/MyExamplesRandom/libraries/viewserver/build/intermediates/bundles/debug/assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/home/css/Documents/Development/AndroidStudioWorkspace/MyExamples/MyExamplesRandom/libraries/viewserver/src/androidTest/assets" />
+    </dataSet>
+
+</merger>

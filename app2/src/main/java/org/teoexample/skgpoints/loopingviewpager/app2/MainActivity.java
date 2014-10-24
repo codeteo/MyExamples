@@ -21,9 +21,8 @@ public class MainActivity extends FragmentActivity {
 
         ViewPager pager = (ViewPager)findViewById(R.id.detailsTopPager);
         pager.setAdapter(adapter);
+        pager.setPageMargin(-150);
 
-//        TabPageIndicator indicator = (TabPageIndicator)findViewById(R.id.indicator);
-//        indicator.setViewPager(pager);
     }
 
 
